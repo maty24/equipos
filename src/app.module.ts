@@ -5,6 +5,7 @@ import { EquiposModule } from './equipos/equipos.module';
 import { Equipos } from './equipos/entities/equipo.entity';
 import { MovimientosModule } from './movimientos/movimientos.module';
 import { Movimientoequipo } from './movimientos/entities/movimiento.entity';
+import { MantencionModule } from './mantencion/mantencion.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { Movimientoequipo } from './movimientos/entities/movimiento.entity';
       entities:[Equipos,Movimientoequipo],
     }),
     EquiposModule,
-    MovimientosModule],
+    MovimientosModule,
+    MantencionModule],
   controllers: [],
   providers: [],
 })
