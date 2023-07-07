@@ -36,8 +36,13 @@ export class EquiposController {
   }
 
   @Get('movimiento/:serie')
-  findOneSerieR(@Param('serie') serie: string) {
+  findOneSerieMov(@Param('serie') serie: string) {
     return this.equiposService.findOneSerialRelationMovimiento(serie);
+  }
+
+  @Get('mantencion/:serie')
+  findOneSerieMan(@Param('serie') serie: string) {
+    return this.equiposService.findOneSerialRelationMantencion(serie);
   }
 
   @Patch(':id')

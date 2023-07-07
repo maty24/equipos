@@ -6,6 +6,7 @@ import { Equipos } from './equipos/entities/equipo.entity';
 import { MovimientosModule } from './movimientos/movimientos.module';
 import { Movimientoequipo } from './movimientos/entities/movimiento.entity';
 import { MantencionModule } from './mantencion/mantencion.module';
+import { Mantencion } from './mantencion/entities/mantencion.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { MantencionModule } from './mantencion/mantencion.module';
       password: '123456',
       synchronize: true,
       autoLoadEntities: false,
-      entities:[Equipos,Movimientoequipo],
+      entities:[Equipos,Movimientoequipo,Mantencion],
     }),
     EquiposModule,
     MovimientosModule,

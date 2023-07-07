@@ -7,6 +7,7 @@ import {
 } from 'class-validator';
 
 export class CreateMantencionDto {
+  
   @IsString()
   @MinLength(1)
   nombre_responsable: string;

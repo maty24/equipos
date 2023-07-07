@@ -77,6 +77,20 @@ export class EquiposService {
       return null;
     }
   }
+  async findOneSerialRelationMantencion(serie: string) {
+    try {
+      const rta = await this.equipomedicoRepository.findOne({
+        where: { serie },
+        relations: ['mantencion'],
+      });
+      if (!rta)
+        throw new NotFoundException(`No existe el serial con numero: ${serie}`);
+      return rta;
+    } catch (error) {
+      this.handleDBExceptions(error);
+      return null;
+    }
+  }
 
   update(id: number, updateEquipoDto: UpdateEquipoDto) {
     return `This action updates a #${id} equipo`;
