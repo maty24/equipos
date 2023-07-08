@@ -171,3 +171,96 @@ export class CreateCheckVentiladoresDto {
   @Max(3)
   estadofinal: number;
 }
+
+export class CreateCheckAnestasiaDto {
+  @IsOptional()
+  @IsInt()
+  mantencion_id: number;
+
+  @IsOptional()
+  @IsNotEmpty()
+  detalles: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  chequeovisual: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  limpieza: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  chequeoinicial: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  chequeoentradagas: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  monitorexhala: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  revisionestado_apl: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  revisionestado_peep: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  medicionpresion: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  medicionflujo: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  fugapresion: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  revisionvalvuaoxigenoflujo: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  verificacionalarmas: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  pruebasseguridad: number;
+
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  estadofinal: number;
+}

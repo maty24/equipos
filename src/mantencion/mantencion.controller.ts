@@ -12,6 +12,7 @@ import {
   CreateMantencionDto,
   CreateCheckIncubaduraDto,
   CreateCheckVentiladoresDto,
+  CreateCheckAnestasiaDto,
 } from './dto/create-mantencion.dto';
 import { UpdateMantencionDto } from './dto/update-mantencion.dto';
 
@@ -47,6 +48,20 @@ export class MantencionController {
     );
   }
 
+  @Post('/anestasia')
+  createAnestasia(
+    @Body()
+    createDto: {
+      mantencion: CreateMantencionDto;
+      checkAnestesia: CreateCheckAnestasiaDto;
+    },
+  ) {
+    return this.mantencionService.createAnestasia(
+      createDto.mantencion,
+      createDto.checkAnestesia,
+    );
+  }
+
   @Get()
   findAll() {
     return this.mantencionService.findAll();
@@ -60,6 +75,11 @@ export class MantencionController {
   @Get('ventiladores/:id')
   findOneVentiladores(@Param('id') id: string) {
     return this.mantencionService.findOneVentiladores(+id);
+  }
+
+  @Get('anestasia/:id')
+  findOneAnestasia(@Param('id') id: string) {
+    return this.mantencionService.findOneAnestasia(+id);
   }
 
   @Patch(':id')

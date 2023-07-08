@@ -7,8 +7,7 @@ import {
   OneToOne,
 } from 'typeorm';
 import { Equipos } from '../../equipos/entities/equipo.entity';
-import { Checkincubadura } from './checkIncubadura.entity';
-import { Checkventiladores } from './checkVentiladores.entity';
+import { Checkincubadura, Checkventiladores,Checkanestasia } from './';
 
 @Entity()
 export class Mantencion {
@@ -48,4 +47,10 @@ export class Mantencion {
     (checkinventiladores) => checkinventiladores.mantencion,
   )
   checkVentiladores: Checkventiladores;
+
+  @OneToOne(
+    () => Checkanestasia,
+    (checkanestasia) => checkanestasia.mantencion,
+  )
+  checkAnestasia: Checkanestasia;
 }
