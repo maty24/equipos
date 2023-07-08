@@ -3,17 +3,18 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
+  NotFoundException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   CreateMantencionDto,
   CreateCheckIncubaduraDto,
+  CreateCheckVentiladoresDto,
 } from './dto/create-mantencion.dto';
 import { UpdateMantencionDto } from './dto/update-mantencion.dto';
-import { Mantencion } from './entities/mantencion.entity';
+import { Mantencion, Checkincubadura, Checkventiladores } from './entities';
 import { EquiposService } from '../equipos/equipos.service';
-import { CheckIncubadura } from './entities/checkIncubadura.entity';
 
 @Injectable()
 export class MantencionService {
@@ -21,10 +22,14 @@ export class MantencionService {
   constructor(
     @InjectRepository(Mantencion)
     private readonly mantencionRepository: Repository<Mantencion>,
-    private readonly checkIncubaduraRepository: Repository<CheckIncubadura>,
+    @InjectRepository(Checkincubadura)
+    private readonly checkIncubaduraRepository: Repository<Checkincubadura>,
+    @InjectRepository(Checkventiladores)
+    private readonly checkVentiladoresRepository: Repository<Checkventiladores>,
     private readonly equiposmedicoRepository: EquiposService,
   ) {}
-  async create(
+
+  async createIncubadora(
     createMantencionDto: CreateMantencionDto,
     createCheckIncubaduraDto: CreateCheckIncubaduraDto,
   ) {
@@ -55,7 +60,32 @@ export class MantencionService {
       return null;
     }
   }
+  async createVentiladores(
+    createMantencionDto: CreateMantencionDto,
+    createCheckVentiladoresDto: CreateCheckVentiladoresDto,
+  ) {
+    try {
+      const mantencion = this.mantencionRepository.create(createMantencionDto);
+      const equiposmedico = await this.equiposmedicoRepository.findOne(
+        createMantencionDto.equipo_id,
+      );
+      mantencion.equipo = equiposmedico;
+      const savedMantencion = await this.mantencionRepository.save(mantencion);
 
+      createCheckVentiladoresDto.mantencion_id = savedMantencion.id;
+      const checkVentiladores = this.checkVentiladoresRepository.create(
+        createCheckVentiladoresDto,
+      );
+      checkVentiladores.mantencion = savedMantencion;
+
+      const savedCheckVentiladores =
+        await this.checkVentiladoresRepository.save(checkVentiladores);
+      return {
+        mantencion: savedMantencion,
+        checkVentiladores: savedCheckVentiladores,
+      };
+    } catch (error) {}
+  }
   async findAll() {
     try {
       const rta = this.mantencionRepository.find({
@@ -73,8 +103,33 @@ export class MantencionService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} mantencion`;
+  async findOneIncubadora(id: number) {
+    try {
+      const rta = await this.mantencionRepository.findOne({
+        where: { id },
+        relations: ['checkIncubadura'],
+      });
+      if (!rta)
+        throw new NotFoundException(`No existe el serial con numero: ${id}`);
+      return rta;
+    } catch (error) {
+      this.handleDBExceptions(error);
+      return null;
+    }
+  }
+  async findOneVentiladores(id: number) {
+    try {
+      const rta = await this.mantencionRepository.findOne({
+        where: { id },
+        relations: ['checkVentiladores'],
+      });
+      if (!rta)
+        throw new NotFoundException(`No existe el serial con numero: ${id}`);
+      return rta;
+    } catch (error) {
+      this.handleDBExceptions(error);
+      return null;
+    }
   }
 
   update(id: number, updateMantencionDto: UpdateMantencionDto) {

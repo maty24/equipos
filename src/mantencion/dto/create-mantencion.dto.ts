@@ -96,3 +96,78 @@ export class CreateCheckIncubaduraDto {
   @Max(3)
   estadofinal: number;
 }
+
+export class CreateCheckVentiladoresDto {
+  @IsOptional()
+  @IsInt()
+  mantencion_id: number;
+
+  @IsOptional()
+  @IsNotEmpty()
+  detalles: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  precioncircuito: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  flujoinspiexha: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  fugapresion: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  valvulapeepexhala: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  pruebascualitativa_ebc: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  pruebapantalla: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  pruebachasis: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  pruebafio2: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  pruebaapnea: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  pruebaalarma: number;
+
+  @IsInt()
+  @Min(1)
+  @Max(3)
+  estadofinal: number;
+}

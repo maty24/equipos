@@ -11,6 +11,7 @@ import { MantencionService } from './mantencion.service';
 import {
   CreateMantencionDto,
   CreateCheckIncubaduraDto,
+  CreateCheckVentiladoresDto,
 } from './dto/create-mantencion.dto';
 import { UpdateMantencionDto } from './dto/update-mantencion.dto';
 
@@ -20,15 +21,29 @@ export class MantencionController {
 
   @Post()
   create(
-    @Body()
+    @Body('/incubadora')
     createDto: {
       mantencion: CreateMantencionDto;
       checkIncubadura: CreateCheckIncubaduraDto;
     },
   ) {
-    return this.mantencionService.create(
+    return this.mantencionService.createIncubadora(
       createDto.mantencion,
       createDto.checkIncubadura,
+    );
+  }
+
+  @Post('/ventiladores')
+  createVentiladores(
+    @Body()
+    createDto: {
+      mantencion: CreateMantencionDto;
+      checkVentiladores: CreateCheckVentiladoresDto;
+    },
+  ) {
+    return this.mantencionService.createVentiladores(
+      createDto.mantencion,
+      createDto.checkVentiladores,
     );
   }
 
@@ -39,7 +54,12 @@ export class MantencionController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.mantencionService.findOne(+id);
+    return this.mantencionService.findOneIncubadora(+id);
+  }
+
+  @Get('ventiladores/:id')
+  findOneVentiladores(@Param('id') id: string) {
+    return this.mantencionService.findOneVentiladores(+id);
   }
 
   @Patch(':id')

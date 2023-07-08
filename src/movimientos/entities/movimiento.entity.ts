@@ -7,7 +7,6 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Equipos } from '../../equipos/entities/equipo.entity';
-import { CheckIncubadura } from '../../mantencion/entities/checkIncubadura.entity';
 
 @Entity()
 export class Movimientoequipo {
