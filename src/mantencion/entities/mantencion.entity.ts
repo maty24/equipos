@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import { Equipos } from '../../equipos/entities/equipo.entity';
+import { CheckIncubadura } from './checkIncubadura.entity';
 
 @Entity()
 export class Mantencion {
@@ -33,4 +35,10 @@ export class Mantencion {
   @ManyToOne(() => Equipos, (equipo) => equipo.mantencion)
   @JoinColumn({ name: 'equipo_id' }) // this line is added
   equipo: Equipos;
+
+  @OneToOne(
+    () => CheckIncubadura,
+    (checkIncubadura) => checkIncubadura.mantencion,
+  )
+  checkIncubadura: CheckIncubadura;
 }
