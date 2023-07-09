@@ -6,7 +6,7 @@ import { Equipos } from './equipos/entities/equipo.entity';
 import { MovimientosModule } from './movimientos/movimientos.module';
 import { Movimientoequipo } from './movimientos/entities/movimiento.entity';
 import { MantencionModule } from './mantencion/mantencion.module';
-import { Mantencion ,Checkincubadura,Checkventiladores} from './mantencion/entities';
+import { Mantencion ,Checkincubadura,Checkventiladores,Checkanestasia} from './mantencion/entities';
 
 
 @Module({
@@ -21,7 +21,7 @@ import { Mantencion ,Checkincubadura,Checkventiladores} from './mantencion/entit
       password: '123456',
       synchronize: true,
       autoLoadEntities: false,
-      entities:[Equipos,Movimientoequipo,Mantencion,Checkincubadura,Checkventiladores],
+      entities:[Equipos,Movimientoequipo,Mantencion,Checkincubadura,Checkventiladores,Checkanestasia],
     }),
     EquiposModule,
     MovimientosModule,
