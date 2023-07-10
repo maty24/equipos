@@ -1,3 +1,4 @@
+/*EQUIPOS*/
 CREATE TABLE Equipos (
     id SERIAL PRIMARY KEY,
     nombre_equipo VARCHAR(255) NOT NULL,
@@ -82,4 +83,26 @@ CREATE TABLE CheckAnestasia (
     pruebasseguridad integer NOT NULL DEFAULT 3,
     estadofinal integer NOT NULL,
     FOREIGN KEY (mantencion_id) REFERENCES Mantencion(id)
+);
+
+/*DISPOSITIVOS*/
+CREATE TABLE Dispositivo (
+    id SERIAL PRIMARY KEY,
+    recinto VARCHAR(255) DEFAULT 'BODEGA',
+    codigo VARCHAR(255) NOT NULL,
+    descripcion VARCHAR(255) NOT NULL,
+    saldo NUMERIC(255) NOT NULL,
+    lote NUMERIC(255) NOT NULL,
+    ultimoprecio NUMERIC(255) NOT NULL,
+    estado NUMERIC(100) DEFAULT 1
+);
+
+CREATE TABLE MovimientoDispositivos (
+    id SERIAL PRIMARY KEY,
+    dispositivo_id INTEGER,
+    nombre_responsable VARCHAR(255) NOT NULL,
+    fecha TIMESTAMPTZ DEFAULT NOW(),
+    detalles VARCHAR(3000) DEFAULT 'SIN DETALLES',
+    recinto VARCHAR NOT NULL,
+    FOREIGN KEY (dispositivo_id) REFERENCES Dispositivo(id) ON DELETE CASCADE
 );
