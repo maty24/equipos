@@ -118,7 +118,7 @@ export class MantencionService {
   
   }
 
-  async findAll() {
+  async findAllRelacion() {
     try {
       const rta = this.mantencionRepository.find({
         relations: {

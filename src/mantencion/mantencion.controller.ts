@@ -20,9 +20,9 @@ import { UpdateMantencionDto } from './dto/update-mantencion.dto';
 export class MantencionController {
   constructor(private readonly mantencionService: MantencionService) {}
 
-  @Post()
+  @Post('incubadora')
   create(
-    @Body('/incubadora')
+    @Body()
     createDto: {
       mantencion: CreateMantencionDto;
       checkIncubadura: CreateCheckIncubaduraDto;
@@ -34,7 +34,7 @@ export class MantencionController {
     );
   }
 
-  @Post('/ventiladores')
+  @Post('ventiladores')
   createVentiladores(
     @Body()
     createDto: {
@@ -48,7 +48,7 @@ export class MantencionController {
     );
   }
 
-  @Post('/anestasia')
+  @Post('anestasia')
   createAnestasia(
     @Body()
     createDto: {
@@ -64,10 +64,10 @@ export class MantencionController {
 
   @Get()
   findAll() {
-    return this.mantencionService.findAll();
+    return this.mantencionService.findAllRelacion();
   }
 
-  @Get(':id')
+  @Get('incubadora/:id')
   findOne(@Param('id') id: string) {
     return this.mantencionService.findOneIncubadora(+id);
   }

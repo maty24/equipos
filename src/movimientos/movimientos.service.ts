@@ -3,6 +3,7 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
+  NotFoundException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -53,8 +54,30 @@ export class MovimientosService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} movimiento`;
+  async findAllSinRelacion() {
+    try {
+      const rta = this.movimientoRepository.find({
+        order: {
+          fecha: 'DESC',
+        },
+      });
+      return rta;
+    } catch (error) {
+      this.handleDBExceptions(error);
+      return null;
+    }
+  }
+
+  async findOne(id: number) {
+    try {
+      const rta = await this.movimientoRepository.findOneBy({ id });
+      if (!rta)
+        throw new NotFoundException(`No existe el serial con numero: ${id}`);
+      return rta;
+    } catch (error) {
+      this.handleDBExceptions(error);
+      return null;
+    }
   }
 
   update(id: number, updateMovimientoDto: UpdateMovimientoDto) {

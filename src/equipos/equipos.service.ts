@@ -63,6 +63,19 @@ export class EquiposService {
       return null;
     }
   }
+
+  async findOneSerie(serie: string) {
+    try {
+      const rta = await this.equipomedicoRepository.findOneBy({ serie });
+      if (!rta)
+        throw new NotFoundException(`No existe el serial con numero: ${serie}`);
+      return rta;
+    } catch (error) {
+      this.handleDBExceptions(error);
+      return null;
+    }
+  }
+
   async findOneSerialRelationMovimiento(serie: string) {
     try {
       const rta = await this.equipomedicoRepository.findOne({
